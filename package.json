@@ -1,0 +1,65 @@
+{
+    "name": "@designliquido/lincones-postgresql",
+    "description": "Implementação de LinConEs para PostgreSQL.",
+    "version": "0.0.1",
+    "main": "index.js",
+    "author": "Leonel Sanches da Silva",
+    "contributors": [
+        {
+            "name": "Leonel Sanches da Silva",
+            "url": "https://www.linkedin.com/in/leonelsanchesdasilva/"
+        },
+        {
+            "name": "Italo Brito Brandão",
+            "url": "https://github.com/ItaloCobains"
+        },
+        {
+            "name": "Samuel Renan Gonçalves Vaz",
+            "url": "https://www.linkedin.com/in/samuel-renan-goncalves-vaz/"
+        }
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/DesignLiquido/lincones-postgresql/issues"
+    },
+    "homepage": "https://github.com/DesignLiquido/lincones-postgresql#readme",
+    "scripts": {
+        "empacotar": "rimraf ./dist && tsc && copyfiles -V ./bin/lincones-postgresql ./bin/lincones-postgresql.cmd ./dist && copyfiles -V ./README.md ./dist",
+        "formatacao-prettier": "prettier --config .prettierrc  *.ts --write",
+        "publicar-npm": "npm publish ./dist --access public",
+        "lint": "eslint . --ext .ts",
+        "testes-unitarios": "jest --coverage"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DesignLiquido/lincones-postgresql.git"
+    },
+    "bin": {
+        "lincones-postgresql": "./bin/lincones-postgresql"
+    },
+    "keywords": [
+        "lincones",
+        "sql",
+        "postgresql"
+    ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.2.3",
+        "@types/node": "^18.11.9",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.28.0",
+        "jest": "^29.3.1",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^29.0.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.3"
+    },
+    "dependencies": {
+        "pg": "^8.10.0",
+        "postgres": "^3.3.4",
+        "prettier": "^2.8.0"
+    }
+}
