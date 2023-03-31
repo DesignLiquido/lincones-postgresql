@@ -17,7 +17,9 @@ lincones.clientePostgreSQL.abrir().then(() => {
                 console.table(resultado.linhasRetornadas);
             }
             
-            console.log(resultado.mensagemExecucao);
+            if (resultado.mensagemExecucao){
+                console.log(resultado.mensagemExecucao);
+            }
 
             if (resultado.ultimoId) {
                 console.log(`ID retornado pela operação: ${resultado.ultimoId}`);

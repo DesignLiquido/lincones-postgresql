@@ -1,46 +1,56 @@
 // import * as caminho from 'node:path';
+import { Client } from 'pg'
+
+export interface IConfiguracaoPostgreSQL {
+    user: string
+    host: string
+    database: string
+    password: string
+    port: number
+}
 
 export class ClientePostgreSQL {
-    // bancoDeDadosInstancia: sqlite3.Database;
-    instanciaBancoDeDados: any;
+    instanciaBancoDeDados: Client;
     readonly caminhoRaiz: string;
     origemDados: string;
 
-    // Segundo a documentação, o método new sqlite3.Database()
-    // pode receber 3 formas de filename
-    // caminho do arquivo exemplo: /tmp/banco.db
-    // ":memory:" para criar um banco de dados em memória
-    // null para criar um banco de dados temporário
-    constructor(origemDados: string | null = null) {
+    constructor(origemDados: IConfiguracaoPostgreSQL = null) {
         this.caminhoRaiz = process.cwd();
         this.origemDados = null;
 
-        if (origemDados !== ':memory:' && origemDados !== null) {
-            // this.origemDados = caminho.join(this.caminhoRaiz, origemDados);
+        if (origemDados) {
+            this.instanciaBancoDeDados = new Client({
+                user: origemDados.user,
+                host: origemDados.host,
+                database: origemDados.database,
+                password: origemDados.password,
+                port: origemDados.port,
+            })
         } else {
-            this.origemDados = ':memory:';
+            //Fins de testes @Samuel
+            this.instanciaBancoDeDados = new Client({
+                user: 'postgres',
+                host: 'localhost',
+                database: 'postgres',
+                password: '123456',
+                port: 5432
+            })
         }
     }
 
     public async abrir() {
-        // const database = await sqlite.open(this.origemDados);
-        // this.instanciaBancoDeDados = database;
-        // console.log('Conectado ao banco de dados SQLite.');
+        await this.instanciaBancoDeDados.connect()
+        console.log('Conectado ao banco de dados PostgreSQL.');
     }
 
     public async executarComando(comando: string): Promise<any> {
-        if (comando.startsWith('SELECT')) {
-            return await this.executarComandoSelecao(comando);
-        }
-
-        return await this.instanciaBancoDeDados.run(comando, (erro: Error) => {
-            if (erro) {
-                console.log(erro.message);
-            }
-        });
-    }
-
-    private async executarComandoSelecao(comando: string) {
-        return await this.instanciaBancoDeDados.all(comando);
+        return new Promise((resolve, reject) => {
+            this.instanciaBancoDeDados.query(comando, (erro, resultado) => {
+                if (erro) {
+                    return reject(erro.stack);
+                };
+                resolve(resultado.rows)
+            })
+        })
     }
 }
