@@ -4,6 +4,9 @@ import { Lexador } from "./lexador";
 import { ClientePostgreSQL } from "./infraestrutura/cliente-postgresql";
 import { RetornoComando } from "./infraestrutura";
 
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 export class LinconesPostgreSQL {
     lexador: Lexador;
     avaliadorSintatico: AvaliadorSintatico;
