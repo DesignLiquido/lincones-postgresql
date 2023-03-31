@@ -1,33 +1,32 @@
+import { QueryResult } from 'pg'
+
 export class RetornoComando {
-    linhasAfetadas: number;
-    ultimoId: any;
+    linhasAfetadas: number = 0;
     linhasRetornadas: any[] = [];
     comandoExecutado: string;
     mensagemExecucao: string;
+    tiposDeComandos : string[] = ['INSERT', 'UPDATE', 'DELETE'];
 
-    constructor(resultadoExecucao: any) {
+    constructor(resultadoExecucao: QueryResult) {
         if (!resultadoExecucao) {
             return;
         }
 
-        if (resultadoExecucao.changes) {
-            this.linhasAfetadas = resultadoExecucao.changes;
+        if (resultadoExecucao.rowCount) {
+            this.linhasAfetadas = resultadoExecucao.rowCount;
         }
 
-        if (resultadoExecucao.lastID) {
-            this.ultimoId = resultadoExecucao.lastID;
+        if (this.tiposDeComandos.includes(resultadoExecucao.command)) {
+            this.comandoExecutado = resultadoExecucao.command;
+            this.mensagemExecucao = `Ok (${this.linhasAfetadas} ${this.linhasAfetadas > 1 ? 'linhas afetadas' : 'linha afetada'})`;
+            return;
         }
 
-        if (resultadoExecucao.stmt) {
-            const linhas = this.linhasAfetadas || 0;
-            this.comandoExecutado = resultadoExecucao.stmt;
-            this.mensagemExecucao = `Ok (${linhas} ${linhas > 1 ? 'linhas afetadas' : 'linha afetada'})`;
-        }
-
-        if (Array.isArray(resultadoExecucao)) {
-            const linhas = this.linhasRetornadas.length || 0
-            this.linhasRetornadas = resultadoExecucao;
+        if (resultadoExecucao.command === 'SELECT') {
+            const linhas = resultadoExecucao.rows.length || 0
+            this.linhasRetornadas = resultadoExecucao.rows;
             this.mensagemExecucao = `(${linhas} ${linhas > 1 ? 'linhas retornadas' : 'linha retornada'})`;
+            return;
         }
     }
 }

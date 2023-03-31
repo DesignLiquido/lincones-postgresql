@@ -4,6 +4,10 @@ Biblioteca de LinConEs para JavaScript usando PostgreSQL.
 
 Especificação em https://github.com/DesignLiquido/LinConEs.
 
+## Documentação de referência para novas implementações
+
+- https://node-postgres.com
+
 ## Modo de uso
 
 Para usar no seu computador, [você deve ter antes o Node.js instalado em seu ambiente](https://dicasdejavascript.com.br/instalacao-do-nodejs-e-npm-no-windows-passo-a-passo).

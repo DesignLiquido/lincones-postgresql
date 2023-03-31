@@ -21,13 +21,17 @@ export class LinconesPostgreSQL {
     }
 
     async executar(comando: string): Promise<RetornoComando> {
+        if(!comando) return new RetornoComando(null)
+
         const resultadoLexador = this.lexador.mapear([comando]);
         const resultadoAvaliacaoSintatica = this.avaliadorSintatico.analisar(resultadoLexador);
-        const resultadoTraducao = this.tradutor.traduzir(resultadoAvaliacaoSintatica.comandos);
 
-        if (resultadoAvaliacaoSintatica.comandos.length <= 0) {
-            return new RetornoComando(null);
+        if (resultadoAvaliacaoSintatica.comandos.includes(null) 
+        || resultadoAvaliacaoSintatica.erros.length > 0){
+            throw `O comando '${comando}' digitado não é válido, tente novamente.`
         }
+
+        const resultadoTraducao = this.tradutor.traduzir(resultadoAvaliacaoSintatica.comandos);
 
         const resultadoExecucao = await this.clientePostgreSQL.executarComando(resultadoTraducao);
         const retorno = new RetornoComando(resultadoExecucao);
