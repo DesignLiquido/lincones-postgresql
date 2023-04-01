@@ -5,11 +5,11 @@ export class ClientePostgreSQL {
     
     constructor() {
         this.instanciaBancoDeDados = new Client({
-            user: process.env.POSTGRES_USUARIO,
-            host: process.env.POSTGRES_ENDERECO,
-            database: process.env.POSTGRES_BASE_DADOS,
-            password: process.env.POSTGRES_SENHA,
-            port: Number(process.env.POSTGRES_PORTA)
+            host: process.env.ENDERECO,
+            port: Number(process.env.PORTA || 5432),
+            database: process.env.NOME_BASE_DADOS,
+            user: process.env.USUARIO,
+            password: process.env.SENHA
         })
     }
 
