@@ -1,8 +1,11 @@
 import tiposDeSimbolos from '../comum/fontes/tipos-de-simbolos';
 
 export default {
+    adicionar: tiposDeSimbolos.ADICIONAR,
+    alterar: tiposDeSimbolos.ALTERAR,
     atualizar: tiposDeSimbolos.ATUALIZAR,
     auto: tiposDeSimbolos.AUTO,
+    coluna: tiposDeSimbolos.COLUNA,
     chave: tiposDeSimbolos.CHAVE,
     criar: tiposDeSimbolos.CRIAR,
     de: tiposDeSimbolos.DE,
@@ -19,6 +22,7 @@ export default {
     nulo: tiposDeSimbolos.NULO,
     onde: tiposDeSimbolos.ONDE,
     primaria: tiposDeSimbolos.PRIMARIA,
+    renomear: tiposDeSimbolos.RENOMEAR,
     selecionar: tiposDeSimbolos.SELECIONAR,
     tabela: tiposDeSimbolos.TABELA,
     texto: tiposDeSimbolos.TEXTO,

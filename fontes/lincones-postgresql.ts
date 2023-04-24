@@ -26,8 +26,7 @@ export class LinconesPostgreSQL {
         const resultadoLexador = this.lexador.mapear([comando]);
         const resultadoAvaliacaoSintatica = this.avaliadorSintatico.analisar(resultadoLexador);
 
-        if (resultadoAvaliacaoSintatica.comandos.includes(null) 
-        || resultadoAvaliacaoSintatica.erros.length > 0){
+        if (resultadoAvaliacaoSintatica.erros.length > 0) {
             throw `O comando '${comando}' digitado não é válido, tente novamente.`
         }
 

@@ -1,5 +1,5 @@
 import { Coluna } from "../../comum/fontes/avaliador-sintatico"
-import { Atualizar, Comando, Criar, Excluir, Inserir, Selecionar } from "../../comum/fontes/comandos";
+import { Alterar, Atualizar, Comando, Criar, Excluir, Inserir, Selecionar } from "../../comum/fontes/comandos";
 import { Simbolo } from "../../comum/fontes/lexador/simbolo";
 
 import tiposDeSimbolos from "../../comum/fontes/tipos-de-simbolos";
@@ -159,7 +159,26 @@ export class Tradutor {
         return resultado;
     }
 
+    //ALTER TABLE produtos ADD COLUMN descricao text(200)
+    traduzirComandoAlterar(comandoAlterar: Alterar): string {
+        let resultado = `ALTER TABLE ${comandoAlterar.tabela} ADD COLUMN ${comandoAlterar.nomeColuna} `;
+
+        switch(comandoAlterar.tipo){
+            case "TEXTO":
+                resultado += `VARCHAR(${comandoAlterar.tamanho})`
+            case "INTEIRO":
+                resultado += "INTEGER";
+            case "LOGICO":
+                resultado += "BIT";
+            case "NUMERO":
+                resultado += "NUMBER";
+        }
+
+        return resultado; //ALTER TABLE produtos ADD COLUMN descricao text(200)
+    }
+
     dicionarioComandos = {
+        Alterar: this.traduzirComandoAlterar.bind(this),
         Atualizar: this.traduzirComandoAtualizar.bind(this),
         Criar: this.traduzirComandoCriar.bind(this),
         Excluir: this.traduzirComandoExcluir.bind(this),
