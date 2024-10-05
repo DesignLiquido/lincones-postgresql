@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/DesignLiquido/lincones-postgresql#readme",
     "scripts": {
-        "empacotar": "rimraf ./dist && tsc && copyfiles -V ./bin/lincones-postgresql ./bin/lincones-postgresql.cmd ./dist && copyfiles -V ./README.md ./dist",
+        "empacotar": "rimraf ./dist && yarn tsc && yarn copyfiles -V ./bin/lincones-postgresql ./bin/lincones-postgresql.cmd ./dist && yarn copyfiles -V ./README.md ./dist",
         "formatacao-prettier": "prettier --config .prettierrc  *.ts --write",
         "publicar-npm": "npm publish ./dist --access public",
         "lint": "eslint . --ext .ts",
@@ -46,21 +46,21 @@
         "registry": "https://registry.npmjs.org/"
     },
     "devDependencies": {
-        "@types/jest": "^29.2.3",
-        "@types/node": "^18.11.9",
-        "@typescript-eslint/eslint-plugin": "^5.45.0",
-        "@typescript-eslint/parser": "^5.45.0",
-        "eslint": "^8.28.0",
-        "jest": "^29.3.1",
-        "rimraf": "^3.0.2",
-        "ts-jest": "^29.0.3",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.9.3"
+        "@types/jest": "^29.5.13",
+        "@types/node": "^22.7.4",
+        "@typescript-eslint/eslint-plugin": "^8.8.0",
+        "@typescript-eslint/parser": "^8.8.0",
+        "eslint": "^9.12.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.3.3",
+        "rimraf": "^6.0.1",
+        "ts-jest": "^29.2.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2"
     },
     "dependencies": {
-        "@types/pg": "^8.6.6",
-        "dotenv": "^16.0.3",
-        "pg": "^8.10.0",
-        "prettier": "^2.8.0"
+        "@types/pg": "^8.11.10",
+        "dotenv": "^16.4.5",
+        "pg": "^8.13.0"
     }
 }
