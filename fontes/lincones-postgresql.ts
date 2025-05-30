@@ -1,10 +1,11 @@
-import { Tradutor } from "../comum/fontes/tradutor";
-import { AvaliadorSintatico } from "../comum/fontes/avaliador-sintatico";
-import { Lexador } from "./lexador";
+import * as dotenv from 'dotenv';
+
+import { Tradutor } from "./tradutor";
+import { AvaliadorSintatico } from "./comum/fontes/avaliador-sintatico";
+import { Lexador } from "./comum/fontes/lexador";
 import { ClientePostgreSQL } from "./infraestrutura/cliente-postgresql";
 import { RetornoComando } from "./infraestrutura";
 
-import * as dotenv from 'dotenv'
 dotenv.config()
 
 export class LinconesPostgreSQL {
@@ -20,7 +21,7 @@ export class LinconesPostgreSQL {
         this.clientePostgreSQL = new ClientePostgreSQL();
     }
 
-    async executar(comando: string): Promise<RetornoComando> {
+    async executar(_: any, comando: string): Promise<RetornoComando> {
         if(!comando) return new RetornoComando(null)
 
         const resultadoLexador = this.lexador.mapear([comando]);
