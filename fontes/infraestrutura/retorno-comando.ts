@@ -1,10 +1,12 @@
 import { QueryResult } from 'pg'
+import { RetornoComandoInterface } from '../comum/fontes/interfaces/retorno-comando-interface';
 
-export class RetornoComando {
+export class RetornoComando implements RetornoComandoInterface {
     linhasAfetadas: number = 0;
     linhasRetornadas: any[] = [];
     comandoExecutado: string;
     mensagemExecucao: string;
+    ultimoId: any;
     tiposDeComandos : string[] = ['INSERT', 'UPDATE', 'DELETE'];
 
     constructor(resultadoExecucao: QueryResult) {
@@ -29,4 +31,5 @@ export class RetornoComando {
             return;
         }
     }
+    
 }

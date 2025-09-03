@@ -12,13 +12,15 @@ lincones.clientePostgreSQL.abrir().then(() => {
     
     interfaceLeitura.prompt();
     interfaceLeitura.on('line', (linha: string) => {
-        lincones.executar(null, linha).then(resultado => {
-            if (resultado.linhasRetornadas.length > 0) {
-                console.table(resultado.linhasRetornadas);
-            }
-            
-            if (resultado.mensagemExecucao){
-                console.log(resultado.mensagemExecucao);
+        lincones.executar(null, linha).then(resultados => {
+            for (const resultado of resultados) {
+                if (resultado.linhasRetornadas.length > 0) {
+                    console.table(resultado.linhasRetornadas);
+                }
+                
+                if (resultado.mensagemExecucao){
+                    console.log(resultado.mensagemExecucao);
+                }
             }
 
             return Promise.resolve();

@@ -17,7 +17,7 @@ describe('Tradutor', () => {
 
             it('Excluir', () => {
                 const codigo = [
-                    'EXCLUIR clientes ONDE nome = "Donald"'
+                    'EXCLUIR EM clientes ONDE nome = "Donald"'
                 ];
                 const retornoLexador = lexador.mapear(codigo);
                 const retornoAvaliadorSintatico =
