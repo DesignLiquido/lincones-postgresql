@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import { Tradutor } from "./tradutor";
 import { AvaliadorSintatico } from "./comum/fontes/avaliador-sintatico";
 import { Lexador } from "./comum/fontes/lexador";
-import { ClientePostgreSQL } from "./infraestrutura/cliente-postgresql";
+import { ClientePostgreSQL, ConfiguracaoConexaoPostgreSQL } from "./infraestrutura/cliente-postgresql";
 import { RetornoComando } from "./infraestrutura";
 import { Comando, TecnologiaLinconesInterface } from './comum/fontes';
 import { RetornoComandoInterface } from './comum/fontes/interfaces/retorno-comando-interface';
@@ -16,15 +16,15 @@ export class LinconesPostgreSQL implements TecnologiaLinconesInterface {
     tradutor: Tradutor;
     clientePostgreSQL: ClientePostgreSQL;
 
-    constructor() {
+    constructor(configuracao?: ConfiguracaoConexaoPostgreSQL) {
         this.lexador = new Lexador();
         this.avaliadorSintatico = new AvaliadorSintatico();
         this.tradutor = new Tradutor();
-        this.clientePostgreSQL = new ClientePostgreSQL();
+        this.clientePostgreSQL = new ClientePostgreSQL(configuracao);
     }
 
-    async iniciar(caminho: string): Promise<void> {
-        throw new Error('Method not implemented.');
+    async iniciar(_caminho: string): Promise<void> {
+        await this.clientePostgreSQL.abrir();
     }
 
     async executarComando(comando: Comando): Promise<RetornoComandoInterface[]> {

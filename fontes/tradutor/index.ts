@@ -79,7 +79,7 @@ export class Tradutor extends TradutorSqlAnsi {
         let resultado = '';
 
         for (const comando of comandos.filter((c) => c)) {
-            resultado += `${this.dicionarioComandos[comando.constructor.name](
+            resultado += `${(this.dicionarioComandos as any)[comando.constructor.name](
                 comando
             )} \n`;
         }
