@@ -3,10 +3,11 @@ import * as dotenv from 'dotenv';
 import { Tradutor } from "./tradutor";
 import { AvaliadorSintatico } from "./comum/fontes/avaliador-sintatico";
 import { Lexador } from "./comum/fontes/lexador";
-import { ClientePostgreSQL, ConfiguracaoConexaoPostgreSQL } from "./infraestrutura/cliente-postgresql";
+import { ClientePostgreSQL } from "./infraestrutura/cliente-postgresql";
 import { RetornoComando } from "./infraestrutura";
 import { Comando, TecnologiaLinconesInterface } from './comum/fontes';
 import { RetornoComandoInterface } from './comum/fontes/interfaces/retorno-comando-interface';
+import { ConfiguracaoConexaoPostgreSQL } from './interfaces';
 
 dotenv.config()
 
